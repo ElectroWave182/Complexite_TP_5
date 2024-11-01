@@ -1,0 +1,211 @@
+1)
+
+Fonction estPremier (p entier)
+
+Début
+|	
+|	
+|	premier = Vrai
+|	
+|	Pour compteur allant de 2 à |p| - 1 :
+|	|	premier = premier et non (compteur | p)
+|	Fin Pour.
+|	
+|	Retourner premier
+|	
+|	
+Fin
+
+
+2)
+
+p s'écrit avec log2 (p) bits en base 2.
+D'où une complexité des données n de :
+O (2 ^ n)
+
+
+3)
+
+Il suffit pour cela de modifier la borne supérieure de la boucle Pour à |_ √p _| ;
+cela est possible, car
+pour tout d diviseur de p,
+p / d ≤ √p ou d ≤ √p
+
+Fonction estPremier (p entier)
+
+Début
+|	
+|	
+|	premier = Vrai
+|	
+|	Pour compteur allant de 2 à |_ √|p| _| :
+|	|	premier = premier et non (compteur | p)
+|	Fin Pour.
+|	
+|	Retourner premier
+|	
+|	
+Fin
+
+
+4)
+
+Il faudrait, pour cela, parcourir tous les nombres inférieurs à p, donc sommer les complexités :
+
+   p
+   Σ √nb = O (p √p)
+nb = 2
+
+
+5)
+
+Fonction eratosthene (p entier)
+
+Début
+|	
+|	
+|	premiers ← []
+|	sontPremiers ← [Faux, Faux]
+|	
+|	Pour nb allant de 2 à p :
+|	|	sontPremiers.ajouter (Vrai)
+|	Fin Pour.
+|	
+|	
+|	Pour facteur allant de 2 à p:
+|	|	Si sontPremiers[facteur] alors :
+|	|	|	
+|	|	|	Pour multiple allant de facteur à p avec un pas de facteur :
+|	|	|	|	sontPremiers[multiple] ← Faux
+|	|	|	Fin Pour.
+|	|	|	
+|	|	|	premiers.ajouter (facteur)
+|	|	|	
+|	|	Fin Si.
+|	Fin Pour.
+|	
+|	
+|	Retourner premiers
+|	
+|	
+Fin
+
+
+Complexité :
+------------
+
+  p
+  Σ	|_ p / b _|
+b = 2
+
+  p
+~ Σ	p / b
+b = 2
+
+	p
+= p Σ 1 / b
+  b = 2
+
+= O (p ln p)
+
+
+6)
+
+Fonction sommeDivStricts (nb)
+
+Début
+|	
+|	
+|	racine ← √nb
+|	somme ← 1
+|	Si racine = |_ racine _| alors :
+|	|	somme ← somme + racine
+|	Fin Si.
+|	
+|	Pour diviseur allant de 2 à |‾ racine ‾| - 1 :
+|	|	
+|	|	Si diviseur | nb alors :
+|	|	|	somme ← somme + diviseur
+|	|	|	somme ← somme + nb / diviseur
+|	|	Fin Si.
+|	|	
+|	Fin Pour.
+|	
+|	Retourner somme
+|	
+|	
+Fin
+
+
+Fonction parfaits (n entier)
+
+Début
+|	
+|	
+|	listeParfaits = []
+|	
+|	Pour nb allant de 2 à n :
+|	|	
+|	|	Si sommeDivStricts (nb) = nb alors :
+|	|	|	listeParfaits.ajouter (nb)
+|	|	Fin Si.
+|	|	
+|	Fin Pour.
+|	
+|	Retourner listeParfaits
+|	
+|	
+Fin
+
+
+Complexité :
+------------
+
+  n
+  Σ	|‾ √nb ‾| - 3
+nb = 2
+
+  n
+~ Σ	√nb
+nb = 2
+
+= O (n √n)
+
+
+7)
+
+Fonction amis (n entier)
+
+Début
+|	
+|	
+|	listeAmis = []
+|	
+|	Pour nb allant de 2 à n :
+|	|	
+|	|	camarade = sommeDivStricts (nb)
+|	|	
+|	|	Si camarade ≠ nb et sommeDivStricts (camarade) = nb alors :
+|	|	|	listeAmis.ajouter (nb, camarade)
+|	|	Fin Si.
+|	|	
+|	Fin Pour.
+|	
+|	Retourner listeAmis
+|	
+|	
+Fin
+
+
+Complexité :
+------------
+
+  n
+  Σ	|‾ √nb ‾| - 3
+nb = 2
+
+  n
+~ Σ	√nb
+nb = 2
+
+= O (n √n)
